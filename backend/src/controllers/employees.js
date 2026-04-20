@@ -1,4 +1,5 @@
 import employeesModel from '../models/employees.js';
+import departmentsModel from '../models/department.js';
 
 const employeesController = {
     create: async (req, res) => {
@@ -8,6 +9,12 @@ const employeesController = {
             const existingEmployee = await employeesModel.findOne({ employeeCode });
             if (existingEmployee) {
                 return res.status(400).json({ message: 'El código de empleado ya existe' });
+            }
+            let departmentCodes = departmentCode;
+
+            const codeDepartmentSearch = await departmentsModel.findOne({ departmentCodes });
+            if(!codeDepartmentSearch){
+                return res.status(400).json({message:'El codigo de departamento no se encuentra. ', codeDepartmentSearch})
             }
             const newEmployee = new employeesModel({
                 name,
