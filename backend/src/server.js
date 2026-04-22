@@ -5,6 +5,8 @@ import dns from "node:dns";
 import departmentRouter from './routes/department.js';
 import employeesRouter from './routes/employees.js';
 import cors from 'cors';
+import employeesDepartmentrouter from './routes/employeesDepartment.js';
+
 
 //Se fuerza DNS de google para evitar error ECONNREFUSED en localhost. Se usa solo para localhost, en producción no es necesario.
 if (process.env.NODE_ENV !== "production") {
@@ -16,6 +18,7 @@ await connectDB();
 const server = express();
 server.use(express.json());
 server.use(cors());
+server.use(employeesDepartmentrouter);
 server.use('/departments', departmentRouter);
 server.use('/employees', employeesRouter);
 

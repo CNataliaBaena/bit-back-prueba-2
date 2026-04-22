@@ -46,7 +46,7 @@ const departmentController = {
     update: async (req, res) => {
         try {            const departmentCode = Number(req.params.departmentCode);
             const { name } = req.body;
-            const department = await departmentModel.findOne({ departmentCode });
+            const department = await departmentModel.findOneAndUpdate({ departmentCode });
             if (!department) {
                 return res.status(404).json({ message: 'Departamento no encontrado' });
             }
@@ -61,12 +61,11 @@ const departmentController = {
     delete: async (req, res) => {
         try {
             const departmentCode = Number(req.params.departmentCode);
-            const department = await departmentModel.findOne({ departmentCode });
-            if (!department) {
+            const departmentDelete = await departmentModel.findOneAndDelete({ departmentCode });
+            if (!departmentDelete) {
                 return res.status(404).json({ message: 'Departamento no encontrado' });
             }
-            await department.remove();
-            res.status(200).json({ message: 'Departamento eliminado' });
+            res.status(200).json({ message: 'Departamento eliminado correctamente' });
         } catch (error) {
             res.status(500).json({ message: 'Error al eliminar el departamento', error: error.message });
         }

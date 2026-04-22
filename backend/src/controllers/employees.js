@@ -12,7 +12,7 @@ const employeesController = {
             }
             let departmentCodes = departmentCode;
 
-            const codeDepartmentSearch = await departmentsModel.findOne({ departmentCodes });
+            const codeDepartmentSearch = await departmentsModel.findOne({ departmentCode });
             if(!codeDepartmentSearch){
                 return res.status(400).json({message:'El codigo de departamento no se encuentra. ', codeDepartmentSearch})
             }
